@@ -1,0 +1,132 @@
+# ============================================
+# Node.js
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ============================================
+# 构建产物
+# ============================================
+dist/
+build/
+*.zab
+
+# ============================================
+# 系统文件
+# ============================================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# ============================================
+# 数据库文件
+# ============================================
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# ============================================
+# 日志文件
+# ============================================
+logs/
+*.log
+
+# ============================================
+# 临时文件
+# ============================================
+tmp/
+temp/
+.cache/
+
+# ============================================
+# 调试和说明文档（非核心项目文档）
+# ============================================
+# health-monitor-web 调试文档
+health-monitor-web/设备详情优化说明.md
+health-monitor-web/时区问题修复说明.md
+health-monitor-web/在线离线判断优化-v2.md
+health-monitor-web/测试在线离线状态.md
+health-monitor-web/Dashboard优化说明.md
+health-monitor-web/测试优化效果.md
+health-monitor-web/数据格式修复-v3.1.2.md
+health-monitor-web/表格样式修复.md
+health-monitor-web/UI风格升级说明.md
+health-monitor-web/最终修复总结.md
+health-monitor-web/查看新UI效果.md
+health-monitor-web/测试员工详情.md
+health-monitor-web/问题修复报告-v3.1.1.md
+health-monitor-web/数据删除优化完成.md
+health-monitor-web/数据删除优化方案.md
+health-monitor-web/权限验证修复说明.md
+health-monitor-web/前端数据格式修复说明.md
+health-monitor-web/API路由修复说明.md
+health-monitor-web/系统完成总结.md
+health-monitor-web/系统优化完成报告.md
+health-monitor-web/实施进度报告.md
+health-monitor-web/系统优化方案-设备与员工管理.md
+health-monitor-web/如何测试.md
+health-monitor-web/下一步操作.md
+health-monitor-web/数据监控指南.md
+health-monitor-web/查看数据库指南.md
+health-monitor-web/开发完成报告.md
+health-monitor-web/前端使用说明.md
+health-monitor-web/test*.ps1
+health-monitor-web/test-page.html
+health-monitor-web/*.db
+
+# calories 调试文档
+calories/TEST_AUTO_COLLECTION.md
+calories/完整测试流程.md
+calories/QUICK_START_DATA_PUSH.md
+calories/DEBUG_INSTRUCTIONS.md
+calories/DIRECT_WIFI_UPLOAD.md
+calories/DATA_PUSH_GUIDE.md
+calories/推送间隔修改说明.md
+calories/设备ID修复说明.md
+calories/ZeppOS环境配置.md
+calories/FINAL_V2.2.0.md
+calories/HOTFIX_*.md
+calories/CHANGELOG_*.md
+calories/REALTIME_MEASUREMENT_GUIDE.md
+calories/DATA_EXPLANATION.md
+calories/AUTO_COLLECTION_GUIDE.md
+calories/FIX_INVALID_REQUEST.md
+calories/FORUM_HELP_*.md
+calories/AUTO_PUSH_GUIDE.md
+calories/SUCCESS.md
+calories/TEST_DATA_PUSH.md
+calories/ZML_FIX_GUIDE.md
+calories/REAL_DEVICE_TEST.md
+calories/DEBUG_MESSAGING.md
+calories/MESSAGING_IMPLEMENTATION.md
+calories/QUICK_FIX_SUMMARY.md
+calories/TEST_NOW.md
+calories/VERIFY_FIX.md
+calories/HOTFIX_BLACK_SCREEN.md
+calories/NEXT_STEPS.md
+calories/IMPLEMENTATION_SUMMARY.md
+calories/CHANGELOG.md
+calories/使用说明.md
+calories/TROUBLESHOOTING.md
+
+# 其他非核心文档
+zeppos-docs-main/
+zeppos-samples-main/
+zeppos-samples-main.zip
+hello-world/
+
+# ============================================
+# 环境变量
+# ============================================
+.env
+.env.local
+.env.*.local
+

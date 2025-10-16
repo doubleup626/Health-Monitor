@@ -1,0 +1,25 @@
+{
+  "name": "health-monitor-server",
+  "version": "1.0.0",
+  "description": "深地矿井工人健康监测系统 - 后端服务器",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "init-db": "node -e \"require('./database').initDatabase().then(() => console.log('Database initialized'))\""
+  },
+  "keywords": [
+    "health-monitor",
+    "iot",
+    "websocket",
+    "ai-analysis"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "sqlite3": "^5.1.7",
+    "ws": "^8.17.0"
+  }
+}
+
+

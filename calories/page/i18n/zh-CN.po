@@ -1,0 +1,68 @@
+msgid "title"
+msgstr "健康监测"
+
+msgid "status_running"
+msgstr "✅ 自动采集运行中\n每5分钟上传一次"
+
+msgid "status_stopped"
+msgstr "○ 已停止采集"
+
+msgid "data_info"
+msgstr "暂无数据"
+
+msgid "data_count"
+msgstr "已采集数据"
+
+msgid "last_collect_time"
+msgstr "最后采集时间"
+
+msgid "heart_rate"
+msgstr "心率"
+
+msgid "blood_oxygen"
+msgstr "血氧"
+
+msgid "stress"
+msgstr "压力"
+
+msgid "body_temp"
+msgstr "体温"
+
+msgid "steps"
+msgstr "步数"
+
+msgid "altitude"
+msgstr "海拔"
+
+msgid "air_pressure"
+msgstr "气压"
+
+msgid "start_collect"
+msgstr "开始采集"
+
+msgid "stop_collect"
+msgstr "停止采集"
+
+msgid "manual_collect"
+msgstr "手动采集一次"
+
+msgid "service_started"
+msgstr "服务已启动"
+
+msgid "service_stopped"
+msgstr "服务已停止"
+
+msgid "service_start_failed"
+msgstr "服务启动失败"
+
+msgid "service_stop_failed"
+msgstr "服务停止失败"
+
+msgid "manual_collect_success"
+msgstr "采集成功"
+
+msgid "manual_collect_failed"
+msgstr "采集失败"
+
+msgid "permission_denied"
+msgstr "权限被拒绝"

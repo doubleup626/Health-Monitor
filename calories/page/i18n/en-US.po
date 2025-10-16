@@ -1,0 +1,68 @@
+msgid "title"
+msgstr "Health Monitor"
+
+msgid "status_running"
+msgstr "✅ Auto Collection Running\nUploading every 5 min"
+
+msgid "status_stopped"
+msgstr "○ Stopped"
+
+msgid "data_info"
+msgstr "No data yet"
+
+msgid "data_count"
+msgstr "Data Collected"
+
+msgid "last_collect_time"
+msgstr "Last Collection Time"
+
+msgid "heart_rate"
+msgstr "Heart Rate"
+
+msgid "blood_oxygen"
+msgstr "Blood Oxygen"
+
+msgid "stress"
+msgstr "Stress"
+
+msgid "body_temp"
+msgstr "Body Temp"
+
+msgid "steps"
+msgstr "Steps"
+
+msgid "altitude"
+msgstr "Altitude"
+
+msgid "air_pressure"
+msgstr "Air Pressure"
+
+msgid "start_collect"
+msgstr "Start Collection"
+
+msgid "stop_collect"
+msgstr "Stop Collection"
+
+msgid "manual_collect"
+msgstr "Manual Collect"
+
+msgid "service_started"
+msgstr "Service Started"
+
+msgid "service_stopped"
+msgstr "Service Stopped"
+
+msgid "service_start_failed"
+msgstr "Start Failed"
+
+msgid "service_stop_failed"
+msgstr "Stop Failed"
+
+msgid "manual_collect_success"
+msgstr "Collect Success"
+
+msgid "manual_collect_failed"
+msgstr "Collect Failed"
+
+msgid "permission_denied"
+msgstr "Permission Denied"

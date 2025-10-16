@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深地矿井健康监测系统 - API</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Consolas', 'Monaco', monospace;
+      background: #0a0e1a;
+      color: #e0e0e0;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #00ff88;
+      text-shadow: 0 0 10px #00ff88;
+      margin-bottom: 20px;
+      font-size: 36px;
+      text-align: center;
+    }
+
+    .status-box {
+      background: rgba(26, 35, 50, 0.8);
+      border: 2px solid #00ff88;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .status-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .status-text {
+      font-size: 24px;
+      color: #00ff88;
+      margin-bottom: 10px;
+    }
+
+    .info-text {
+      color: #88ccff;
+      font-size: 16px;
+    }
+
+    .api-section {
+      background: rgba(26, 35, 50, 0.8);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+
+    .api-section h2 {
+      color: #00ff88;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .api-list {
+      list-style: none;
+    }
+
+    .api-item {
+      background: rgba(26, 35, 50, 0.5);
+      border-left: 3px solid #88ccff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+
+    .api-method {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-right: 10px;
+      font-size: 12px;
+    }
+
+    .method-get {
+      background: #00ff88;
+      color: #000;
+    }
+
+    .method-post {
+      background: #88ccff;
+      color: #000;
+    }
+
+    .api-path {
+      color: #e0e0e0;
+      font-family: monospace;
+      margin-right: 15px;
+    }
+
+    .api-desc {
+      color: #a0a0a0;
+      font-size: 14px;
+    }
+
+    .test-btn {
+      background: #00ff88;
+      color: #0a0e1a;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .test-btn:hover {
+      background: #00cc77;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #888;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏭 深地矿井健康监测系统</h1>
+    
+    <div class="status-box">
+      <div class="status-icon">✅</div>
+      <div class="status-text">服务器运行正常</div>
+      <div class="info-text">
+        <p>📡 端口: 3000</p>
+        <p>🔌 WebSocket: ws://localhost:3000</p>
+        <p>⏰ 时间: <span id="current-time"></span></p>
+      </div>
+    </div>
+
+    <div class="api-section">
+      <h2>🌸 API 接口</h2>
+      <ul class="api-list">
+        <li class="api-item">
+          <span class="api-method method-post">POST</span>
+          <span class="api-path">/api/health-data</span>
+          <span class="api-desc">- 接收手表数据（原有接口）</span>
+        </li>
+        <li class="api-item">
+          <span class="api-method method-get">GET</span>
+          <span class="api-path">/api/workers</span>
+          <span class="api-desc">- 获取工人列表</span>
+        </li>
+        <li class="api-item">
+          <span class="api-method method-get">GET</span>
+          <span class="api-path">/api/devices/stats</span>
+          <span class="api-desc">- 设备统计</span>
+        </li>
+        <li class="api-item">
+          <span class="api-method method-get">GET</span>
+          <span class="api-path">/api/realtime/all</span>
+          <span class="api-desc">- 所有实时数据</span>
+        </li>
+        <li class="api-item">
+          <span class="api-method method-post">POST</span>
+          <span class="api-path">/api/ai/analyze/:workerId</span>
+          <span class="api-desc">- AI分析</span>
+        </li>
+      </ul>
+    </div>
+
+    <button class="test-btn" onclick="testConnection()">测试服务器连接</button>
+
+    <div class="footer">
+      <p>访问 Web 界面，请前往前端开发服务器</p>
+      <p>本地开发: http://localhost:8080</p>
+    </div>
+  </div>
+
+  <script>
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('current-time').textContent = now.toLocaleString('zh-CN');
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    async function testConnection() {
+      try {
+        const response = await fetch('/ping');
+        const data = await response.json();
+        alert('✅ 服务器连接成功！\n\n' + JSON.stringify(data, null, 2));
+      } catch (error) {
+        alert('❌ 连接失败：' + error.message);
+      }
+    }
+  </script>
+</body>
+</html>
+
+
