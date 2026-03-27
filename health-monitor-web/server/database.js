@@ -23,15 +23,35 @@ const db = new sqlite3.Database(DB_PATH, (err) => {
  */
 function initDatabase() {
   const sqlPath = path.join(__dirname, 'database-init.sql');
-  const sql = fs.readFileSync(sqlPath, 'utf8');
+  const ragSqlPath = path.join(__dirname, 'rag-init.sql');
   
   return new Promise((resolve, reject) => {
+    // 执行主数据库初始化
+    const sql = fs.readFileSync(sqlPath, 'utf8');
+    
     db.exec(sql, (err) => {
       if (err) {
         console.error('❌ 数据库初始化失败:', err.message);
         reject(err);
-      } else {
-        console.log('✅ 数据库初始化成功');
+        return;
+      }
+      
+      console.log('✅ 主数据库初始化成功');
+      
+      // 执行RAG数据库初始化
+      try {
+        const ragSql = fs.readFileSync(ragSqlPath, 'utf8');
+        db.exec(ragSql, (err) => {
+          if (err) {
+            console.error('❌ RAG数据库初始化失败:', err.message);
+            reject(err);
+          } else {
+            console.log('✅ RAG数据库初始化成功');
+            resolve();
+          }
+        });
+      } catch (error) {
+        console.warn('⚠️ RAG数据库初始化文件不存在，跳过');
         resolve();
       }
     });

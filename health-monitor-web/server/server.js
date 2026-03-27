@@ -34,6 +34,16 @@ const {
   operationLogHandlers
 } = require('./api-routes-management');
 
+// 导入 RAG 路由 (新增)
+const {
+  handleUpload,
+  handleGetDocuments,
+  handleDeleteDocument,
+  handleQuery,
+  handleGetHistory,
+  handleGetStats
+} = require('./rag-routes');
+
 const PORT = process.env.PORT || 3000;
 const HOSTNAME = '0.0.0.0';
 
@@ -588,12 +598,61 @@ const server = http.createServer(async (req, res) => {
     return;
   }
   
+  // ============================================
+  // RAG API 接口 (新增)
+  // ============================================
+  
+  // 上传文档
+  if (url === '/api/rag/upload' && method === 'POST') {
+    await handleUpload(req, res);
+    return;
+  }
+  
+  // 获取文档列表
+  if (url.startsWith('/api/rag/documents') && method === 'GET' && !url.match(/\/api\/rag\/documents\/[^\/]+$/)) {
+    await handleGetDocuments(req, res);
+    return;
+  }
+  
+  // 删除文档
+  if (url.match(/^\/api\/rag\/documents\/[^\/]+$/) && method === 'DELETE') {
+    const docId = url.split('/')[4];
+    await handleDeleteDocument(req, res, docId);
+    return;
+  }
+  
+  // RAG查询
+  if (url.startsWith('/api/rag/query') && method === 'GET') {
+    await handleQuery(req, res);
+    return;
+  }
+  
+  // 查询历史
+  if (url === '/api/rag/history' && method === 'GET') {
+    await handleGetHistory(req, res);
+    return;
+  }
+  
+  // RAG统计
+  if (url === '/api/rag/stats' && method === 'GET') {
+    await handleGetStats(req, res);
+    return;
+  }
+  
+  // ============================================
+  // AI 分析 API
+  // ============================================
+  
   // AI 分析
-  if (url.match(/^\/api\/ai\/analyze\/\w+$/) && method === 'POST') {
+  if (url.match(/^\/api\/ai\/analyze\/\w+/) && method === 'POST') {
     try {
       const workerId = url.split('/')[4];
       
-      console.log(`🤖 开始 AI 分析 - 工人: ${workerId}`);
+      // 检查是否使用RAG
+      const urlObj = new URL(url, `http://${req.headers.host}`);
+      const useRAG = urlObj.searchParams.get('use_rag') === 'true';
+      
+      console.log(`🤖 开始 AI 分析 - 工人: ${workerId}${useRAG ? ' (使用RAG)' : ''}`);
       
       // 获取工人信息
       const worker = await workerDB.getById(workerId);
@@ -623,8 +682,8 @@ const server = http.createServer(async (req, res) => {
         bodyTemperature: { current: realtime.body_temperature }
       });
       
-      // 执行 AI 分析
-      const analysis = await performAnalysis(worker, realtime, history, safetyCheck);
+      // 执行 AI 分析（支持RAG）
+      const analysis = await performAnalysis(worker, realtime, history, safetyCheck, useRAG);
       
       // 保存分析结果
       await aiDB.save(analysis);

@@ -233,16 +233,42 @@ async function callDeepSeekAPI(prompt) {
 /**
  * 执行 AI 分析
  */
-async function performAnalysis(workerData, realtimeData, historyData, safetyCheck) {
+async function performAnalysis(workerData, realtimeData, historyData, safetyCheck, useRAG = false) {
   console.log(`🤖 开始 AI 分析 - 工人: ${workerData.name} (${workerData.worker_id})`);
   
-  // 1. 构建提示词
+  let ragContext = '';
+  
+  // 如果启用RAG，检索相关知识
+  if (useRAG) {
+    try {
+      const { query: ragQuery } = require('./rag/rag-query');
+      
+      // 构建RAG查询
+      const queryText = buildRAGQuery(workerData, realtimeData, safetyCheck);
+      console.log(`🔍 RAG查询: "${queryText}"`);
+      
+      // 执行RAG检索
+      const ragResult = await ragQuery(queryText, { rerankTopK: 3 });
+      
+      if (ragResult.results.length > 0) {
+        ragContext = '\n\n## 参考知识库\n\n' + ragResult.context;
+        console.log(`✅ RAG检索成功: ${ragResult.results.length} 个相关文档`);
+      } else {
+        console.log('⚠️ RAG未找到相关文档');
+      }
+    } catch (error) {
+      console.error('❌ RAG检索失败:', error.message);
+      // RAG失败不影响主流程
+    }
+  }
+  
+  // 1. 构建提示词（包含RAG上下文）
   const prompt = buildPrompt(
     workerData,
     realtimeData,
     historyData,
     safetyCheck.alerts
-  );
+  ) + ragContext;
   
   // 2. 调用 DeepSeek API
   const analysis = await callDeepSeekAPI(prompt);
@@ -254,13 +280,44 @@ async function performAnalysis(workerData, realtimeData, historyData, safetyChec
     request_data: JSON.stringify(realtimeData),
     prompt: prompt,
     history_data: JSON.stringify(historyData),
+    use_rag: useRAG,
     ...analysis
   };
+}
+
+/**
+ * 构建RAG查询文本
+ */
+function buildRAGQuery(workerData, realtimeData, safetyCheck) {
+  const queries = [];
+  
+  // 根据异常指标构建查询
+  if (safetyCheck.alerts && safetyCheck.alerts.length > 0) {
+    for (const alert of safetyCheck.alerts) {
+      if (alert.type === 'heart_rate') {
+        queries.push('心率异常处理');
+      } else if (alert.type === 'blood_oxygen') {
+        queries.push('血氧不足应急措施');
+      } else if (alert.type === 'stress') {
+        queries.push('压力过大处理方法');
+      } else if (alert.type === 'depth') {
+        queries.push('深地作业安全规范');
+      }
+    }
+  }
+  
+  // 默认查询
+  if (queries.length === 0) {
+    queries.push('深地矿井工人健康监测');
+  }
+  
+  return queries.join(' ');
 }
 
 module.exports = {
   performAnalysis,
   buildPrompt,
+  buildRAGQuery,
   AI_CONFIG
 };
 
