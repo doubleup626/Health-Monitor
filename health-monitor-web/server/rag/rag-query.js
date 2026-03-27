@@ -3,7 +3,7 @@
  */
 
 const { generateEmbeddings } = require('./embeddings');
-const vectorStore = require('./vector-store');
+const vectorStore = require('./vector-store'); // 使用简化版（已重命名）
 const BM25 = require('./bm25');
 const { rerank } = require('./reranker');
 const config = require('./config');

@@ -5,7 +5,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
-const formidable = require('formidable');
+const formidable = require('formidable').formidable;
 
 const { processDocument } = require('./rag/document-processor');
 const { generateEmbeddingsBatch } = require('./rag/embeddings');

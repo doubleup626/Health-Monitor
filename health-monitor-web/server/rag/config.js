@@ -5,7 +5,7 @@
 module.exports = {
   // Qwen Embedding API 配置
   qwen: {
-    apiKey: 'sk-886bedda24214b5190ba5add0ba4029e', // 使用与DeepSeek相同的key，或替换为Qwen的key
+    apiKey: 'sk-90ba9dc30574490e856467768874a133',
     endpoint: 'https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings',
     model: 'text-embedding-v3', // Qwen的embedding模型
     dimension: 1024 // Qwen embedding维度
